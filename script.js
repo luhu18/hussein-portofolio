@@ -129,17 +129,45 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (viewMoreBtn) {
         viewMoreBtn.addEventListener('click', function() {
-            hiddenSkills.forEach(skill => {
-                if (skill.style.display === 'list-item' || skill.classList.contains('active-skill')) {
-                    skill.style.display = 'none';
-                    skill.classList.remove('active-skill');
-                    viewMoreBtn.textContent = 'View More Skills';
-                } else {
+            const isExpanded = viewMoreBtn.getAttribute('aria-expanded') === 'true';
+            
+            if (isExpanded) {
+                // Hide skills with animation
+                hiddenSkills.forEach((skill, index) => {
+                    setTimeout(() => {
+                        skill.style.opacity = '0';
+                        skill.style.transform = 'translateY(-10px)';
+                        
+                        // After animation completes, hide the element
+                        setTimeout(() => {
+                            skill.style.display = 'none';
+                        }, 300);
+                    }, index * 50);
+                });
+                
+                viewMoreBtn.textContent = 'View More Skills';
+                viewMoreBtn.setAttribute('aria-expanded', 'false');
+            } else {
+                // Show skills with animation
+                hiddenSkills.forEach((skill, index) => {
+                    // First make it visible but transparent
                     skill.style.display = 'list-item';
-                    skill.classList.add('active-skill');
-                    viewMoreBtn.textContent = 'View Less Skills';
-                }
-            });
+                    skill.style.opacity = '0';
+                    skill.style.transform = 'translateY(10px)';
+                    
+                    // Trigger animation after a small delay
+                    setTimeout(() => {
+                        skill.style.opacity = '1';
+                        skill.style.transform = 'translateY(0)';
+                    }, index * 50);
+                });
+                
+                viewMoreBtn.textContent = 'View Less Skills';
+                viewMoreBtn.setAttribute('aria-expanded', 'true');
+            }
         });
+        
+        // Initialize button state
+        viewMoreBtn.setAttribute('aria-expanded', 'false');
     }
 });
