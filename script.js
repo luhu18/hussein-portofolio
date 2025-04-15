@@ -121,3 +121,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Skills section - View More functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const viewMoreBtn = document.getElementById('view-more-skills');
+    const hiddenSkills = document.querySelectorAll('.hidden-skill');
+    
+    if (viewMoreBtn) {
+        viewMoreBtn.addEventListener('click', function() {
+            hiddenSkills.forEach(skill => {
+                if (skill.style.display === 'list-item' || skill.classList.contains('active-skill')) {
+                    skill.style.display = 'none';
+                    skill.classList.remove('active-skill');
+                    viewMoreBtn.textContent = 'View More Skills';
+                } else {
+                    skill.style.display = 'list-item';
+                    skill.classList.add('active-skill');
+                    viewMoreBtn.textContent = 'View Less Skills';
+                }
+            });
+        });
+    }
+});
