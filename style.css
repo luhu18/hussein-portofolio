@@ -314,6 +314,33 @@ a:focus, button:focus {
     transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out, box-shadow 0.3s ease;
 }
 
+/* Remove duplicate hover effect for skills list items */
+.skills-list li:hover {
+    /* This is defined twice in your CSS file */
+    /* Keep only the one with box-shadow */
+}
+
+/* Remove unused mobile menu styles if you don't have a mobile menu button */
+@media (max-width: 768px) {
+    .main-navigation {
+        display: none;
+    }
+    
+    .main-navigation.active {
+        display: block;
+    }
+    
+    .mobile-menu-btn {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        cursor: pointer;
+    }
+}
+
+/* Keep these styles if you plan to add a mobile menu later */
 .skills-list li:hover {
     transform: translateY(-3px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
